@@ -3,14 +3,18 @@ using UnityEngine;
 public class PlataformsMovements : MonoBehaviour
 {
  [SerializeField]
-    private float _Speed=2f;
+    private float initialSpeed=2f;
     [SerializeField]
     private float _speedincrease=0.1f;
     private bool _canMove=true;
     public bool CanMove{set => _canMove=value;}
+
+    private Vector3 startingPosition;
+    private float speed;
        void Start()
     {
-       
+       startingPosition = transform.position;
+       speed = initialSpeed;
     }
  
     // Update is called once per frame
@@ -23,12 +27,28 @@ public class PlataformsMovements : MonoBehaviour
     }
     private void MovePlatforms()
     {
-        transform.position+=Vector3.left*_Speed*Time.deltaTime;
+        transform.position+=Vector3.left*speed*Time.deltaTime;
  
     }
     public void IncreaseSpeed()
     {
-        _Speed+=_speedincrease;
+        speed+=_speedincrease;
+    }
+
+    public void StopMovement()
+    {
+        CanMove= false;
     }
  
+    public void StartMovement()
+    {
+        CanMove= true;
+    }
+    public void Restart()
+
+    {
+        transform.position = startingPosition;
+        speed = initialSpeed;
+        StartMovement();
+    }
 }

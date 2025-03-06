@@ -20,6 +20,8 @@ public class Jump : MonoBehaviour
     private float _jumpTimeCounter;
  
     private bool _buttonPressed;
+
+    private bool cantJump = true;
  
  
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -28,6 +30,11 @@ public class Jump : MonoBehaviour
         rb=GetComponent<Rigidbody>();
     }
  
+    public void SetCanJump(bool value)
+    {
+        cantJump =value;
+    }
+
     public void StartJump()
     {
         _buttonPressed=true;

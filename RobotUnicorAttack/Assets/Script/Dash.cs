@@ -14,6 +14,11 @@ public class Dash : MonoBehaviour
         private bool _isdashing;
         private bool _canDash;
     public bool IsDashing {get=>_isdashing;}
+    private bool dashEnabled = true;
+    public void SetDashEnabled(bool enabled)
+    {
+        dashEnabled = enabled;
+    }
     public void DashActions()
     {
         if(!_isdashing)

@@ -6,15 +6,24 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private UnityEvent _onGameStart;
 
+    [SerializeField]
+    private UnityEvent onRespawnGame;
+    
+    [SerializeField]
+    private float secondsToRestart = 3f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
        _onGameStart?.Invoke(); 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlayerLose()
     {
-        
+        Invoke(nameof(RestartGame), secondsToRestart);
+    }
+    public void RestartGame()
+    {
+        onRespawnGame?.Invoke();
     }
 }
