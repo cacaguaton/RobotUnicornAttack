@@ -27,7 +27,7 @@ private float _finishSecondsToRestart = 5f;
     public void FnishGame()
     {
         _OnrespawnGame?.Invoke();
-        Invoke("StartGame", _secondsToRestart);
+        Invoke("Start", _secondsToRestart);
         Invoke("RestartGame", _finishSecondsToRestart);
 
     }

@@ -14,7 +14,7 @@ public class PlatformsMovement : MonoBehaviour
     private bool _canMove=true;
     public bool CanMove{set => _canMove=value;}
     private Vector3 _StartingPosition;
-    private float _speed;
+    public float _speed;
 
     private float pastSpeed;
 
@@ -24,6 +24,7 @@ public class PlatformsMovement : MonoBehaviour
     {
         pastSpeed = _speed;
         _speed*= speedMultipler;
+        
     }
 
     public void SpeedDown()

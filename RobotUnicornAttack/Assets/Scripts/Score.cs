@@ -14,8 +14,7 @@ private UnityEvent<int> _onScoredChangue;
 private UnityEvent<int> _onSetScored;
 [SerializeField]
 private UnityEvent<int> _onSetFinalScore;
-[SerializeField]
-private int _scoresNumber=3;
+
 
    public void SetScore(int score)
    {
@@ -51,14 +50,4 @@ private int _scoresNumber=3;
         scores.Clear();
 
    }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
