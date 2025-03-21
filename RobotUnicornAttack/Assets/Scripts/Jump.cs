@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Jump : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class Jump : MonoBehaviour
     [SerializeField]
     private float _jumpBoost=0.5f;
     [SerializeField]
-    private int _maxJumps=2;
+    private int _maxJumps=1;
     private int _jumps;
 
     private Rigidbody rb;
@@ -22,6 +23,9 @@ public class Jump : MonoBehaviour
     private bool _buttonPressed;
 
     private bool _canJump=true;
+
+    [SerializeField]
+    private UnityEvent _animacion;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -44,7 +48,9 @@ public class Jump : MonoBehaviour
     {
         if(!_canJump)
         {
+         
             return;
+            
 
         }
         _buttonPressed=true;
@@ -55,6 +61,7 @@ public class Jump : MonoBehaviour
             _jumpTimeCounter=_maxJumpTime;
             rb.linearVelocity=Vector3.up*_jumpForce;
             _isGrounded=false;
+            _animacion?.Invoke();
 
         }
     }
@@ -74,6 +81,7 @@ public class Jump : MonoBehaviour
             {
               rb.linearVelocity=Vector3.up*(_jumpForce+_jumpBoost);
               _jumpTimeCounter-=Time.fixedDeltaTime;
+              _animacion?.Invoke();
 
             }
             else

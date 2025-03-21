@@ -14,6 +14,8 @@ public class Dash : MonoBehaviour
         private bool _isdashing;
         private bool _canDash=true;
         private bool _dashEnabled=true;
+    [SerializeField]
+    private UnityEvent _animacionDash;
     public bool IsDashing {get=>_isdashing;}
     public void SetDashEnabled(bool enabled)
     {
@@ -27,6 +29,7 @@ public class Dash : MonoBehaviour
             _onDash?.Invoke();
             _isdashing=true;
             Invoke(nameof(StopDash),_duration);
+            _animacionDash?.Invoke();
         }
     }
     private void StopDash()
@@ -40,14 +43,5 @@ public class Dash : MonoBehaviour
     {
         _canDash=true;
     }
-        void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
