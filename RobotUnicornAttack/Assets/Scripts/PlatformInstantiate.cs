@@ -15,12 +15,12 @@ public class PlatformInstantiate : MonoBehaviour
         _OffSetPositionX=0;
         InstantiatePlatforms(_InitialPlatforms);
     }
-    public void InstantiatePlatforms(int amount)
-    {
-        for(int i=0;i<amount;i++)
+public void InstantiatePlatforms(int amount) 
+{
+            for(int i=0;i<amount;i++)
         {
             int randomIndex= Random.Range(0,_platforms.Count);
-            if(i>=1)
+            if(i>=2)
             {
                 if(_OffSetPositionX!=0)
             {
@@ -33,7 +33,7 @@ public class PlatformInstantiate : MonoBehaviour
             }
             else
             {
-            
+           
             if(_OffSetPositionX!=0)
             {
                 _OffSetPositionX+=_platforms[randomIndex].GetComponent<BoxCollider>().size.x*0.5f;
@@ -42,10 +42,26 @@ public class PlatformInstantiate : MonoBehaviour
             _OffSetPositionX += platform.GetComponent<BoxCollider>().size.x * 0.5f;
             platform.transform.SetParent(transform);
             platform.transform.localPosition = new Vector3(_OffSetPositionX, 0,0);
-            }            
+            }      
         }
+}
+public void InstantiatePlatforms2(int amount) 
+{
+            for(int i=0;i<amount;i++)
+        {
+            int randomIndex= Random.Range(0,_platforms.Count);
 
-    }
+            if(_OffSetPositionX!=0)
+            {
+                _OffSetPositionX+=_platforms[randomIndex].GetComponent<BoxCollider>().size.x*0.5f;
+            }
+                GameObject platform = Instantiate(_platforms[randomIndex], Vector3.zero, Quaternion.identity);
+            _OffSetPositionX += platform.GetComponent<BoxCollider>().size.x * 0.5f;
+            platform.transform.SetParent(transform);
+            platform.transform.localPosition = new Vector3(_OffSetPositionX, 0,0);
+        }      
+        
+}
     public void Restart()
     {
         foreach(Transform child in transform)

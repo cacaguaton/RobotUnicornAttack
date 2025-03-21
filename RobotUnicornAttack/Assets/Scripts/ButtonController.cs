@@ -22,14 +22,5 @@ public class ButtonController : MonoBehaviour, IPointerUpHandler, IPointerDownHa
 
     }
   
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
