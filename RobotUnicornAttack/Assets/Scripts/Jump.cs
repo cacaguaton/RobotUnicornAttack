@@ -81,7 +81,6 @@ public class Jump : MonoBehaviour
             {
               rb.linearVelocity=Vector3.up*(_jumpForce+_jumpBoost);
               _jumpTimeCounter-=Time.fixedDeltaTime;
-              _animacion?.Invoke();
 
             }
             else
