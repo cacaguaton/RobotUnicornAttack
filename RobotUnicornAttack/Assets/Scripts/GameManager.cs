@@ -9,10 +9,30 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private UnityEvent _OnrespawnGame;
     [SerializeField]
+
+    private UnityEvent onFinishGame;
+    [SerializeField]
+    private UnityEvent onLoseGame;
+
+    [SerializeField]
+    private UnityEvent onShowGameOverScreen;
+
+    [SerializeField]
+
     private float _secondsToRestart=3f;
     [SerializeField]
 
+    private float secondsToShowGameOverScreen = 3f;
+
+    [SerializeField]
+
 private float _finishSecondsToRestart = 5f;
+
+    public void Awake()
+    {
+        _secondsToRestart+= secondsToShowGameOverScreen;
+        _finishSecondsToRestart+= secondsToShowGameOverScreen;
+    }
     void Start()
     {
         _onGameStart?.Invoke();
@@ -32,8 +52,19 @@ private float _finishSecondsToRestart = 5f;
 
     }
 
+    private void ShowGameOverScreen()
+
+    {
+        onShowGameOverScreen?.Invoke();
+    }
+
     private void RestartGame()
     {
         _OnrespawnGame?.Invoke();
+    }
+    public void LoseGame()
+    {
+        onLoseGame?.Invoke();
+        Invoke("ShowGameOverScreen", secondsToShowGameOverScreen);
     }
 }

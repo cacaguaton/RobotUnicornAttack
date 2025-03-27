@@ -5,6 +5,11 @@ public class PlayerCollition : MonoBehaviour
 {
     [SerializeField]
     private UnityEvent _onPlayerLose;
+
+    [SerializeField]
+    private UnityEvent<Transform> onObstacleDestroyed;
+    [SerializeField]
+    private UnityEvent<Transform> onCollisionDie;
     private Dash _dash;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,10 +22,12 @@ public class PlayerCollition : MonoBehaviour
         {
             if(_dash.IsDashing)
             {
+                onObstacleDestroyed?.Invoke(transform);
                 Destroy(collision.gameObject);
             }
             else
             {
+                onCollisionDie?.Invoke(transform);
                 _onPlayerLose?.Invoke();
             }
         }
@@ -30,6 +37,7 @@ public class PlayerCollition : MonoBehaviour
     {
         if (other.CompareTag("DeadZone"))
         {
+            onCollisionDie?.Invoke(transform);
             _onPlayerLose?.Invoke();
         }   
     }
