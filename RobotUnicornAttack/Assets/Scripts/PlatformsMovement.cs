@@ -1,75 +1,75 @@
-using System.Runtime.InteropServices;
-using Unity.Mathematics;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlatformsMovement : MonoBehaviour
 {
-    [SerializeField]
-    private float _InitialSpeed=2f;
-    [SerializeField]
-    private float _speedincrease=0.1f;
-    [SerializeField]
-    private UnityEvent<int> _onscoredChangued;
-    private bool _canMove=true;
-    public bool CanMove{set => _canMove=value;}
-    private Vector3 _StartingPosition;
-    public float _speed;
 
+    [SerializeField]
+    private float initialSpeed = 2f;
+    [SerializeField]
+    private float speedIncrease = 0.1f;
+    [SerializeField]
+    private UnityEvent<int> onScoreChanged;
+    private bool canMove = true;
+    public bool CanMove { set => canMove = value; }
+    private Vector3 startingPosition;
+    private float speed;
     private float pastSpeed;
+    private Vector3 movedDistance;
 
-    private Vector3 _moveDistance;
-
-    public void SpeedUp(float speedMultipler)
+    public void SpeedUp(float speedMultiplier)
     {
-        pastSpeed = _speed;
-        _speed*= speedMultipler;
-        
+        pastSpeed = speed;
+        speed *= speedMultiplier;
     }
 
     public void SpeedDown()
     {
-        _speed = pastSpeed;
+        speed = pastSpeed;
     }
-       void Start()
+    private void Start()
     {
-        _StartingPosition= transform.position;
-        _speed=_InitialSpeed;
+        startingPosition = transform.position;
+        speed = initialSpeed;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if(_canMove)
+        if (canMove)
         {
             MovePlatforms();
         }
     }
+
     private void MovePlatforms()
     {
-        Vector3 distanceToMove=Vector3.left*_speed*Time.deltaTime;
-        transform.position+=distanceToMove;
-        _moveDistance+=distanceToMove;  
-        _onscoredChangued?.Invoke(math.abs((int)_moveDistance.x));
-
+        Vector3 distanceToMove = Vector3.left * speed * Time.deltaTime;
+        transform.position += distanceToMove;
+        movedDistance += distanceToMove;
+        onScoreChanged?.Invoke(Math.Abs((int)movedDistance.x));
     }
+
     public void IncreaseSpeed()
     {
-        _speed+=_speedincrease;
+        speed += speedIncrease;
+        pastSpeed+= speedIncrease;
     }
+
     public void StopMovement()
     {
-        _canMove=false; 
+        canMove = false;
     }
+
     public void StartMovement()
     {
-        _canMove=true;
+        canMove = true;
     }
+
     public void Restart()
     {
-        transform.position=_StartingPosition;
-        _speed=_InitialSpeed;
-        _moveDistance=Vector3.zero;
+        transform.position = startingPosition;
+        speed = initialSpeed;
+        movedDistance = Vector3.zero;
         StartMovement();
     }
 }
