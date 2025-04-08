@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     private UnityEvent onShowGameOverScreen;
 
     [SerializeField]
+    private UnityEvent <int> onShowScreen;
+
+    [SerializeField]
 
     private float _secondsToRestart=3f;
     [SerializeField]

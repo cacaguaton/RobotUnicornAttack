@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,8 +16,16 @@ private UnityEvent<int> _onSetScored;
 [SerializeField]
 private UnityEvent<int> _onSetFinalScore;
 
+[SerializeField]
+private UnityEvent<string> OnSetHighScore;
 
-   public void SetScore(int score)
+
+
+    private void Start()
+    {
+        SaveHighScore(0);
+    }
+    public void SetScore(int score)
    {
     
     _currentScore=score;
@@ -49,5 +58,27 @@ private UnityEvent<int> _onSetFinalScore;
         _onSetFinalScore?.Invoke(finalScore);
         scores.Clear();
 
+
+   }
+
+   private void SaveHighScore(int score)
+   {
+      int oldScore = PlayerPrefs.GetInt("HighScore", 0);
+      if (score > oldScore)
+      {
+         PlayerPrefs.SetInt("HighScore", score);
+         PlayerPrefs.Save();
+      }
+      else
+      {
+         score = oldScore;
+      }
+      OnSetHighScore?.Invoke(score.ToString());
+   }
+
+   public void AddScore(int score)
+   {
+      _currentScore+=score;
+      _onScoredChangue?.Invoke(_currentScore);
    }
 }

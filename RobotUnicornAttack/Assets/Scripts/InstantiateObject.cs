@@ -34,4 +34,5 @@ public class InstantiateObject : MonoBehaviour
     {
         _objectPool.Push(obj);
     }
+
 }

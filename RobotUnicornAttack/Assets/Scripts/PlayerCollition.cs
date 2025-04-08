@@ -1,26 +1,28 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerCollition : MonoBehaviour
+public class PlayerCollision : MonoBehaviour
 {
     [SerializeField]
-    private UnityEvent _onPlayerLose;
-
+    private UnityEvent onPlayerLose;
     [SerializeField]
     private UnityEvent<Transform> onObstacleDestroyed;
     [SerializeField]
     private UnityEvent<Transform> onCollisionDie;
-    private Dash _dash;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField]
+    private UnityEvent onCoinCollected;
+    private Dash dash;
+
+    private void Start()
     {
-        _dash=GetComponent<Dash>();
+        dash = GetComponent<Dash>();
     }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Obstacle"))
+        if (collision.gameObject.CompareTag("Obstacle"))
         {
-            if(_dash.IsDashing)
+            if (dash.IsDashing)
             {
                 onObstacleDestroyed?.Invoke(transform);
                 collision.gameObject.SetActive(false);
@@ -28,7 +30,7 @@ public class PlayerCollition : MonoBehaviour
             else
             {
                 onCollisionDie?.Invoke(transform);
-                _onPlayerLose?.Invoke();
+                onPlayerLose?.Invoke();
             }
         }
     }
@@ -38,7 +40,12 @@ public class PlayerCollition : MonoBehaviour
         if (other.CompareTag("DeadZone"))
         {
             onCollisionDie?.Invoke(transform);
-            _onPlayerLose?.Invoke();
-        }   
+            onPlayerLose?.Invoke();
+        } 
+        else if (other.CompareTag("Coin"))
+        {
+            other.gameObject.SetActive(false);
+            onCoinCollected?.Invoke();
+        }
     }
 }
