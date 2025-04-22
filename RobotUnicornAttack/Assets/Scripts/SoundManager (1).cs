@@ -80,4 +80,8 @@ public class SoundManager : MonoBehaviour
 
         masterMixer.SetFloat("masterVolume",volume);
     }
+    public void changueMusicPitch(float pitch)
+    {
+        musicS.pitch=pitch;
+    }
 }
