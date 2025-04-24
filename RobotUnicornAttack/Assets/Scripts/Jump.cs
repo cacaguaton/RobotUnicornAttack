@@ -25,6 +25,9 @@ public class Jump : MonoBehaviour
     private bool _canJump=true;
 
     [SerializeField]
+    private UnityEvent _onLand;
+
+    [SerializeField]
     private UnityEvent _animacion;
 
 
@@ -96,6 +99,8 @@ public class Jump : MonoBehaviour
         {
             _isGrounded=true;
             RestartJumps();
+            _onLand?.Invoke();
+
         }
     }
 

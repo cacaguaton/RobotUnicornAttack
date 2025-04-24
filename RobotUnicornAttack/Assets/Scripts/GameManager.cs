@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
 
     private float _secondsToRestart=3f;
-    [SerializeField]
+   
 
     private float secondsToShowGameOverScreen = 3f;
 
@@ -59,6 +59,7 @@ private float _finishSecondsToRestart = 5f;
 
     {
         onShowGameOverScreen?.Invoke();
+        onShowScreen?.Invoke(3);
     }
 
     private void RestartGame()
